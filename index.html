@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0c0b16">
+  <meta name="description" content="VIBE — sdílej okamžiky, které stojí za to.">
+  <title>VIBE — sdílej svůj svět</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#feed" aria-label="VIBE, úvodní stránka"><span class="brand-symbol">v</span><span>vibe<span class="brand-dot">.</span></span></a>
+      <nav class="main-nav" aria-label="Hlavní navigace">
+        <button class="nav-item active" data-view="feed"><span class="nav-icon">⌂</span><span>Domů</span></button>
+        <button class="nav-item" data-view="discover"><span class="nav-icon">⌕</span><span>Objevovat</span></button>
+        <button class="nav-item" data-view="saved"><span class="nav-icon">♧</span><span>Uložené</span></button>
+        <button class="nav-item" data-view="profile"><span class="nav-icon">◉</span><span>Profil</span></button>
+      </nav>
+      <button class="text-button auth-button" id="authButton">Přihlásit se</button>
+      <button class="create-button" id="openPostDialog"><span>＋</span> Nový příspěvek</button>
+      <div class="sidebar-bottom">
+        <div class="mini-user" id="sidebarProfile">
+          <div class="avatar avatar-me" id="sidebarAvatar">Y</div>
+          <div><strong id="sidebarName">Ty</strong><small id="sidebarHandle">@tvujprofil</small></div>
+          <span class="more-dots">···</span>
+        </div>
+        <p class="tiny-note">VIBE · první veřejná ukázka</p>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="mobile-header">
+        <a class="brand" href="#feed"><span class="brand-symbol">v</span><span>vibe<span class="brand-dot">.</span></span></a>
+        <button class="round-icon" id="mobileCreate" aria-label="Nový příspěvek">＋</button>
+      </header>
+
+      <div class="content-grid">
+        <section class="feed-column" aria-label="Příspěvky">
+          <div class="page-heading">
+            <div><p class="eyebrow">TVŮJ PROSTOR</p><h1 id="pageTitle">Domů</h1></div>
+            <div class="feed-switch" aria-label="Řazení příspěvků"><button class="selected" data-sort="latest">Nejnovější</button><button data-sort="popular">Populární</button></div>
+          </div>
+
+          <section class="stories" aria-label="Příběhy">
+            <button class="story story-own" id="storyOwn"><span class="story-ring"><span class="story-avatar">＋</span></span><span>Tvůj příběh</span></button>
+            <button class="story"><span class="story-ring ring-pink"><span class="story-avatar photo-a">M</span></span><span>Monika</span></button>
+            <button class="story"><span class="story-ring ring-orange"><span class="story-avatar photo-b">D</span></span><span>David</span></button>
+            <button class="story"><span class="story-ring ring-blue"><span class="story-avatar photo-c">E</span></span><span>Eva</span></button>
+            <button class="story"><span class="story-ring ring-violet"><span class="story-avatar photo-d">T</span></span><span>Tomáš</span></button>
+            <button class="story"><span class="story-ring ring-green"><span class="story-avatar photo-e">K</span></span><span>Klára</span></button>
+          </section>
+
+          <input id="discoverSearch" class="discover-search hidden" type="search" placeholder="Hledat lidi nebo příspěvky…" aria-label="Hledat lidi nebo příspěvky">
+          <div class="profile-view hidden" id="profileView"></div>
+          <div class="feed-list" id="feedList" aria-live="polite"></div>
+          <div class="empty-feed hidden" id="emptyFeed"><span>✦</span><h2>Zatím tu nic není</h2><p>Zkus jiný filtr nebo přidej první příspěvek.</p><button class="create-button" id="emptyCreate">＋ Přidat příspěvek</button></div>
+        </section>
+
+        <aside class="right-rail">
+          <div class="rail-user">
+            <div class="avatar avatar-me" id="railAvatar">Y</div>
+            <div><strong id="railName">Ty</strong><small id="railHandle">@tvujprofil</small></div>
+            <button class="text-button" id="editProfileBtn">Upravit</button>
+          </div>
+          <div class="rail-card">
+            <div class="rail-title"><strong>Koho sledovat</strong><button class="text-button" id="refreshSuggestions">Zobrazit vše</button></div>
+            <div class="suggestion"><div class="avatar photo-a">M</div><div><strong>Monika Nová</strong><small>@monika.n</small></div><button class="follow-button" data-follow="monika">Sledovat</button></div>
+            <div class="suggestion"><div class="avatar photo-b">D</div><div><strong>David K.</strong><small>@davidk</small></div><button class="follow-button" data-follow="david">Sledovat</button></div>
+            <div class="suggestion"><div class="avatar photo-c">E</div><div><strong>Eva Veselá</strong><small>@evavesela</small></div><button class="follow-button" data-follow="eva">Sledovat</button></div>
+          </div>
+          <div class="rail-footer">O VIBE · Pravidla komunity · Soukromí<br><span>© 2026 VIBE — pracovní název</span></div>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Mobilní navigace">
+    <button class="active" data-view="feed" aria-label="Domů">⌂</button>
+    <button data-view="discover" aria-label="Objevovat">⌕</button>
+    <button data-view="saved" aria-label="Uložené">♧</button>
+    <button data-view="profile" aria-label="Profil">◉</button>
+  </nav>
+
+  <dialog class="modal" id="authDialog">
+    <form id="authForm" method="dialog">
+      <div class="modal-heading"><div><p class="eyebrow">VÍTEJ VE VIBE</p><h2>Tvůj účet</h2></div><button type="button" class="close-button" data-close="authDialog" aria-label="Zavřít">×</button></div>
+      <label for="authMode">Co chceš udělat?</label><select id="authMode"><option value="signup">Vytvořit nový účet</option><option value="signin">Přihlásit se</option></select>
+      <label for="authEmail">E-mail</label><input id="authEmail" type="email" autocomplete="email" required placeholder="ty@email.cz">
+      <label for="authPassword">Heslo (alespoň 6 znaků)</label><input id="authPassword" type="password" autocomplete="current-password" minlength="6" required>
+      <button class="primary-button" id="authSubmit" type="submit">Vytvořit účet <span>↗</span></button>
+    </form>
+  </dialog>
+
+  <dialog class="modal" id="postDialog">
+    <form id="postForm" method="dialog">
+      <div class="modal-heading"><div><p class="eyebrow">NOVÝ OKAMŽIK</p><h2>Vytvořit příspěvek</h2></div><button type="button" class="close-button" data-close="postDialog" aria-label="Zavřít">×</button></div>
+      <label for="postCaption">Co se děje?</label>
+      <textarea id="postCaption" maxlength="500" rows="4" placeholder="Napiš něco, co chceš sdílet…" required></textarea>
+      <label for="postImageUrl">Odkaz na fotografii <span>(nepovinné)</span></label>
+      <input id="postImageUrl" type="url" placeholder="https://…">
+      <label for="postImageFile">Nebo vyber fotku ze zařízení <span>(max. 1,5 MB)</span></label>
+      <input id="postImageFile" type="file" accept="image/*">
+      <p class="form-hint" id="postImageHint">Příspěvek bez fotky se zobrazí s barevným pozadím.</p>
+      <button class="primary-button" type="submit">Sdílet příspěvek <span>↗</span></button>
+    </form>
+  </dialog>
+
+  <dialog class="modal" id="profileDialog">
+    <form id="profileForm" method="dialog">
+      <div class="modal-heading"><div><p class="eyebrow">TVŮJ ÚČET</p><h2>Upravit profil</h2></div><button type="button" class="close-button" data-close="profileDialog" aria-label="Zavřít">×</button></div>
+      <label for="profileName">Jméno</label><input id="profileName" maxlength="32" required>
+      <label for="profileHandle">Uživatelské jméno</label><input id="profileHandle" maxlength="24" required>
+      <label for="profileBio">O mně</label><textarea id="profileBio" maxlength="140" rows="3" placeholder="Pár slov o tobě…"></textarea>
+      <button class="primary-button" type="submit">Uložit změny <span>✓</span></button>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+</body>
+</html>
